@@ -6,7 +6,7 @@ tail := 200
 default:help
 
 help:
-	@echo "aiogram template"
+	@echo "De Andere Krant - Distributie Bot"
 
 # ================================================================================================
 # Linters and code formatters
@@ -31,13 +31,13 @@ alembic:
 	poetry run alembic ${args}
 
 migrate:
-	poetry run alembic upgrade head
+	PYTHONPATH=. poetry run alembic upgrade head
 
 makemigrations:
-	poetry run alembic revision --autogenerate -m "${message}"
+	PYTHONPATH=. poetry run alembic revision --autogenerate -m "${message}"
 
 downgrade:
-	poetry run alembic downgrade -1
+	PYTHONPATH=. poetry run alembic downgrade -1
 
 # ================================================================================================
 # Docker
@@ -86,3 +86,9 @@ app-down: docker-down
 app-start: docker-stop docker-up
 
 app-destroy: docker-destroy
+
+# =================================================================================================
+# Developer runs
+# =================================================================================================
+dev-start:
+	python3 -m app

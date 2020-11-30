@@ -7,6 +7,7 @@ Create Date: ${create_date}
 """
 from alembic import op
 import sqlalchemy as sa
+from gino import Gino
 ${imports if imports else ""}
 
 # revision identifiers, used by Alembic.
@@ -15,6 +16,8 @@ down_revision = ${repr(down_revision)}
 branch_labels = ${repr(branch_labels)}
 depends_on = ${repr(depends_on)}
 
+gino = Gino()
+gino.schema = gino
 
 def upgrade():
     ${upgrades if upgrades else "pass"}

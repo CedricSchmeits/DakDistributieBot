@@ -1,1 +1,1 @@
-# Bot created by [Cedric Schmeits](https://github.com/CedricSchmeits)
+# De Andere Krant Distributie Bot gecreëerd door [Cedric Schmeits](https://github.com/CedricSchmeits)

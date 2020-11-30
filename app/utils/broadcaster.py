@@ -11,13 +11,16 @@ from app.misc import bot
 class Broadcast:
     def __init__(
         self,
-        users: typing.List[int],
+        users: typing.Union[typing.List[int], typing.List[str], int, str],
         text: str,
         disable_notification: bool = False,
         timeout: int = 0.02,
         logger=__name__,
     ):
-        self.users = users
+        if isinstance(users, list):
+            self.users = users
+        elif isinstance(users, int) or isinstance(users, str):
+            self.users = [users]
         self.text = text
         self.disable_notification = disable_notification
         self.count = 0

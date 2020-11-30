@@ -2,8 +2,8 @@ version: "3"
 
 services:
   db:
-    container_name: database
     image: postgres:alpine
+    container_name: database
     restart: on-failure
     environment:
       POSTGRES_USER: $POSTGRES_USER
@@ -24,7 +24,7 @@ services:
       - 6379:6379
 
   bot:
-    container_name: bot
+    container_name: dak_distributie_bot
     build:
       context: .
     restart: on-failure
@@ -36,3 +36,5 @@ services:
     depends_on:
       - db
       - redis
+    volumes:
+    - ./app/:/src/app

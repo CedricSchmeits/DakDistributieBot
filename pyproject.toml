@@ -1,14 +1,14 @@
 [tool.poetry]
 name = "DakDistributieBot"
 version = "0.1.0"
-description = ""
-authors = ["0Kit <kostyajog@mail.ru>"]
+description = "De Andere Krant - Distributie bot"
+authors = ["Cedric Schmeits <cedric@schmeits.net>"]
 packages = [
     { include = "app" }
 ]
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.7"
 aiogram = "2.11"
 aioredis = "1.3.1"
 alembic = "1.4.3"

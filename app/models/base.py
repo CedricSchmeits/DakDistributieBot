@@ -32,7 +32,6 @@ class TimedBaseModel(BaseModel):
         DateTime(True), default=db.func.now(), onupdate=db.func.now(), server_default=db.func.now()
     )
 
-
 async def connect(postgres_uri):
     await db.set_bind(postgres_uri)
     logger.info('PostgreSQL is successfully configured')
