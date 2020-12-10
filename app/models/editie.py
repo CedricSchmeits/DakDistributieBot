@@ -17,6 +17,7 @@ class Editie(TimedBaseModel):
     naam = db.Column(db.String)
     url = db.Column(db.String)
     cover = db.Column(db.String)
+    actief = db.Column(db.Boolean, server_default=expression.false())
 
     query: Select
 

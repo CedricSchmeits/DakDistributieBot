@@ -10,7 +10,7 @@ class Groep(BaseModel):
     __tablename__ = "groepen"
 
     id = db.Column(db.BigInteger, autoincrement=True, primary_key=True, index=True, unique=True)
-    name = db.Column(db.String)
+    chatId = db.Column(db.BigInteger, unique=True)
 
     query: Select
 

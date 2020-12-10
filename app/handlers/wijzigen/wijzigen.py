@@ -23,6 +23,7 @@ async def AdminWijzigenHandler(msg: types.Message):
 
     if user.is_superuser:
         keyboard.insert(types.InlineKeyboardButton(text='Editie', callback_data='wijzigingen_editie'))
+        keyboard.insert(types.InlineKeyboardButton(text='Groepen', callback_data='wijzigingen_groep'))
 
     await msg.answer(f'In wel onderdeel wil je wijzigingen doorvoeren?', reply_markup=keyboard, disable_notification=True)
     await msg.delete()

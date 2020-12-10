@@ -4,4 +4,4 @@ class NewEditie(StatesGroup):
     Naam = State()
     Url = State()
     Cover = State()
-    Bevestigen = State()
+    Confirm = State()

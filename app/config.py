@@ -7,6 +7,7 @@ env.read_env()
 
 
 BOT_TOKEN = env.str("BOT_TOKEN")
+BOT_ID = int(BOT_TOKEN.split(':')[0])
 
 SKIP_UPDATES = env.bool("SKIP_UPDATES", False)
 WORK_PATH: Path = Path(__file__).parent.parent

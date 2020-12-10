@@ -3,6 +3,7 @@ from .wijzigen import (
 )
 
 from .editie import (
+    AdminWijzigenEditie,
     AdminEditieCancel,
     AdminEditieAdd,
     AdminEditieSetName,
@@ -10,4 +11,8 @@ from .editie import (
     AdminEditieSetCover,
     AdminEditieConfirm,
     AdminEditieReset,
+)
+
+from .groep import (
+    AdminWijzigenGroep
 )

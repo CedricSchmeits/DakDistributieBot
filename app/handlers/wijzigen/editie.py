@@ -92,7 +92,7 @@ async def AdminEditieSetCover(message: types.Message, state: FSMContext):
     await state.update_data(item=item)
 
 
-@dp.callback_query_handler(is_superuser=True, state=NewEditie.Bevestigen, text='confirm_item')
+@dp.callback_query_handler(is_superuser=True, state=NewEditie.Confirm, text='confirm_item')
 async def AdminEditieConfirm(query: types.CallbackQuery, state: FSMContext):
     data = await state.get_data()
     item = data.get('item')
@@ -103,7 +103,7 @@ async def AdminEditieConfirm(query: types.CallbackQuery, state: FSMContext):
     await query.answer()
 
 
-@dp.callback_query_handler(is_superuser=True, state=NewEditie.Bevestigen, text='reset_item')
+@dp.callback_query_handler(is_superuser=True, state=NewEditie.Confirm, text='reset_item')
 async def AdminEditieReset(query: types.CallbackQuery, state: FSMContext):
     await query.message.answer("De registratie van een nieuwe editie is geannuleerd",
                                reply_markup=ReplyKeyboardRemove())
