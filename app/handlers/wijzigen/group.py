@@ -57,7 +57,7 @@ async def AdminGroupNewChatMember(message: types.Message):
 # Groep Menu
 ##########################################################
 @dp.callback_query_handler(is_superuser=True, text='wijzigingen_groep')
-async def AdminWijzigenGroep(query: types.CallbackQuery, state: FSMContext):
+async def AdminChangesGroup(query: types.CallbackQuery, state: FSMContext):
     keyboard = types.InlineKeyboardMarkup()
     keyboard.insert(types.InlineKeyboardButton(text='Nieuwe Toevoegen', callback_data='group_new'))
     keyboard.insert(types.InlineKeyboardButton(text='Wijzigen', callback_data='group_change'))
@@ -75,7 +75,7 @@ class NewGroupStates(StatesGroup):
     Confirm = State()
 
 @dp.message_handler(Text(equals='annuleren', ignore_case=True), state=NewGroupStates)
-async def AdminGroepCancel(message: types.Message, state: FSMContext):
+async def AdminGroupCancel(message: types.Message, state: FSMContext):
     await message.answer("De registratie van een nieuwe groep is geannuleerd",
                          reply_markup=ReplyKeyboardRemove(), disable_notification=True)
     await message.delete()
@@ -83,7 +83,7 @@ async def AdminGroepCancel(message: types.Message, state: FSMContext):
 
 @rate_limit(30)
 @dp.callback_query_handler(text='group_new', is_superuser=True)
-async def AdminGroepAdd(query: types.CallbackQuery, state: FSMContext):
+async def AdminGroupAdd(query: types.CallbackQuery, state: FSMContext):
     logger.info("nieuwe groep registreren")
     await query.message.answer(f'U begint met de registratie van een nieuwe groep.\nVoer het id van de groep in:',
                                reply_markup=cancel_markup, disable_notification=True)
@@ -91,7 +91,7 @@ async def AdminGroepAdd(query: types.CallbackQuery, state: FSMContext):
     await NewGroupStates.first()
 
 @dp.message_handler(state=NewGroupStates.GroupId, is_superuser=True)
-async def AdminGroepSetId(message: types.Message, state: FSMContext):
+async def AdminGroupSetId(message: types.Message, state: FSMContext):
     groupId = int(message.text)
     if groupId >= 0:
         await message.delete()
@@ -118,7 +118,7 @@ async def AdminGroepSetId(message: types.Message, state: FSMContext):
 
 
 @dp.callback_query_handler(is_superuser=True, state=NewGroupStates.Confirm, text='confirm_item')
-async def AdminGroepConfirm(query: types.CallbackQuery, state: FSMContext):
+async def AdminGroupConfirm(query: types.CallbackQuery, state: FSMContext):
     data = await state.get_data()
     item = data.get('item')
     new_item = await Groep.create(chatId=item['chatId'])
@@ -131,7 +131,7 @@ async def AdminGroepConfirm(query: types.CallbackQuery, state: FSMContext):
 
 
 @dp.callback_query_handler(is_superuser=True, state=NewGroupStates.Confirm, text='reset_item')
-async def AdminGroepReset(query: types.CallbackQuery, state: FSMContext):
+async def AdminGroupReset(query: types.CallbackQuery, state: FSMContext):
     await query.message.answer("De registratie van een nieuwe groep is geannuleerd",
                                reply_markup=ReplyKeyboardRemove(), disable_notification=True)
     await state.finish()
@@ -186,7 +186,7 @@ async def AdminGroupTestCancel(message: types.Message, state: FSMContext):
 @dp.callback_query_handler(GroupKeyboard.filter(action='delete'),
                            state=GroupDeleteStates.GroupId,
                            is_superuser=True)
-async def AdminGroepVerwijderenId(query: types.CallbackQuery, callback_data: typing.Dict[str, str], state: FSMContext):
+async def AdminGroupVerwijderenId(query: types.CallbackQuery, callback_data: typing.Dict[str, str], state: FSMContext):
     groupId = int(callback_data['id'])
     if groupId < 0:
         return await message.answer('Ongeldige groep id.', disable_notification=True)
@@ -205,7 +205,7 @@ async def AdminGroepVerwijderenId(query: types.CallbackQuery, callback_data: typ
     await state.update_data(item=item)
 
 @dp.callback_query_handler(is_superuser=True, state=GroupDeleteStates.Confirm, text='confirm_item')
-async def AdminGroepDeleteConfirm(query: types.CallbackQuery, state: FSMContext):
+async def AdminGroupDeleteConfirm(query: types.CallbackQuery, state: FSMContext):
     data = await state.get_data()
     item = data.get('item')
     groep = await Groep.get(item['id'])
@@ -219,7 +219,7 @@ async def AdminGroepDeleteConfirm(query: types.CallbackQuery, state: FSMContext)
 
 
 @dp.callback_query_handler(is_superuser=True, state=GroupDeleteStates.Confirm, text='reset_item')
-async def AdminGroepDeleteReset(query: types.CallbackQuery, state: FSMContext):
+async def AdminGroupDeleteReset(query: types.CallbackQuery, state: FSMContext):
     await query.message.answer("De verwijdering van een nieuwe groep is geannuleerd",
                                reply_markup=ReplyKeyboardRemove(), disable_notification=True)
     await state.finish()

@@ -13,6 +13,6 @@ from .editie import (
     AdminEditieReset,
 )
 
-from .groep import (
-    AdminWijzigenGroep
+from .group import (
+    AdminChangesGroup
 )
